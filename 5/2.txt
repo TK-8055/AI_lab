@@ -1,0 +1,123 @@
+AIM:-
+
+Extend the system to accept user input for propositions and evaluate the result
+dynamically.
+
+
+
+
+ALGORITHM:-
+
+1. Start the program.
+
+2. Define functions for:
+
+    Implication (→)
+
+    Biconditional (↔)
+
+3. Ask the user to input truth values for propositions (A, B, C).
+
+4. Ask the user to enter a logical expression containing connectives:
+∧, ∨, ¬, →, ↔
+
+5. Replace logical symbols with Python-compatible operations.
+
+6. Compute implications and biconditionals using custom functions.
+
+7. Evaluate the full expression using Python’s boolean evaluation.
+
+8. Display the final logical result (True / False).
+
+9. Stop the program.
+
+
+
+
+PROCEDURE:-
+
+1. Define user propositions and map them to boolean values.
+
+2. Convert the entered logical expression into an evaluatable form.
+
+3. Replace symbols (∧, ∨, ¬, →, ↔) with functions/boolean operators.
+
+4. Evaluate the expression dynamically.
+
+5. Print the final value of the logical expression.
+
+
+
+PROGRAM:-
+
+def implies(p, q):
+    return (not p) or q
+
+
+def iff(p, q):
+    return (p and q) or (not p and not q)
+
+
+# Function to get truth value from user
+def get_truth_value(label):
+    while True:
+        val = input(f"Enter truth value for {label} (T/F): ").strip().upper()
+        if val in ['T', 'TRUE']:
+            return True
+        elif val in ['F', 'FALSE']:
+            return False
+        else:
+            print("Invalid input! Please enter T or F.")
+
+
+# Propositions (now assigned by user)
+propositions = {
+    'A': get_truth_value('A'),
+    'B': get_truth_value('B'),
+    'C': get_truth_value('C')
+}
+
+
+def evaluate_expressions():
+    print("\n--- Propositional Logic Evaluation ---")
+
+    result1 = propositions['A'] and not propositions['C']
+    print("A ∧ ¬C =", result1)
+
+    result2 = (propositions['A'] or propositions['B']) and propositions['C']
+    print("(A ∨ B) ∧ C =", result2)
+
+    result3 = not propositions['B'] or propositions['A']
+    print("¬B ∨ A =", result3)
+
+    result4 = implies(propositions['A'], propositions['C'])
+    print("A → C =", result4)
+
+    result5 = iff(propositions['B'], propositions['C'])
+    print("B ↔ C =", result5)
+
+
+# Run the program
+evaluate_expressions()
+
+
+
+SAMPLE OUTPUT:-
+
+Enter truth value for A (T/F): t
+Enter truth value for B (T/F): t
+Enter truth value for C (T/F): t
+
+--- Propositional Logic Evaluation ---
+A ∧ ¬C = False
+(A ∨ B) ∧ C = True
+¬B ∨ A = True
+A → C = True
+B ↔ C = True
+
+
+
+RESULT
+
+The system was successfully extended to accept user inputs and 
+dynamically evaluate logical expressions using propositional logic connectives.

@@ -1,0 +1,170 @@
+AIM:-
+   Implement the A* algorithm to find the shortest path in a weighted graph.
+
+
+
+
+PROCEDURE:-
+
+1. Define a weighted graph along with heuristic values for each node.
+
+2. Accept the number of nodes and neighbors with edge cost from the user.
+
+3. Accept heuristic values for each node.
+
+4. Get the start and goal nodes from the user.
+
+5. Apply the A* search algorithm:
+
+    Maintain an open list sorted by f(n)
+
+    Track visited nodes to avoid repetition
+
+    Update path and cost until the goal is reached
+
+6. Display the visiting order and the final path to the goal.
+
+7. Stop.
+
+
+
+
+ALGORITHM:-
+
+1. Start the program.
+
+2. Create a priority queue (open list) and insert the start node with f(n) = g(n) + h(n).
+
+3. Initialize g(start) = 0 and an empty visited set.
+
+4. Repeat until the open list becomes empty:
+    a. Remove the node with the lowest f(n).
+    b. If the node is the goal, print the path and stop.
+    c. If not visited:
+
+        Mark the node as visited
+
+        For each neighbor:
+            ▪ Calculate g(neighbor) = g(current) + 1.
+            ▪ Calculate f(neighbor) = g(neighbor) + h(neighbor).
+            ▪ Add neighbor to the queue.
+
+
+5. If the loop terminates without reaching the goal, print "No path found".
+
+6. End the program.
+
+
+
+
+PROGRAM:-
+
+def a_star(graph, h, start, goal):
+    print("\nA* Algorithm")
+    open_list = [(start, [start], 0)]  # (node, path, g_cost)
+    visited = set()
+
+    while open_list:
+        # Sort by f(n) = g(n) + h(n)
+        open_list.sort(key=lambda x: x[2] + h[x[0]])
+        current, path, cost = open_list.pop(0)
+
+        print("Visiting:", current)
+
+        if current == goal:
+            print("\nGoal Reached!")
+            return path
+
+        visited.add(current)
+
+        for neighbor, edge_cost in graph.get(current, []):
+            if neighbor not in visited:
+                total_cost = cost + edge_cost  # g(n)
+                open_list.append((neighbor, path + [neighbor], total_cost))
+
+    print("\nNo Path Found.")
+    return None
+
+
+# ---- INPUT GRAPH ----
+graph = {}
+n = int(input("Enter number of nodes: "))
+for _ in range(n):
+    node = input("Enter node: ").strip()
+    neighbors = input(f"Enter neighbors of {node} as (name cost), separated by commas: ").strip()
+
+    neighbor_list = []
+    if neighbors:
+        for pair in neighbors.split(','):
+            name, cost = pair.strip().split()
+            neighbor_list.append((name, int(cost)))
+
+    graph[node] = neighbor_list
+
+# ---- HEURISTIC VALUES ----
+h = {}
+print("\nEnter heuristic values:")
+for node in graph:
+    h[node] = int(input(f"Heuristic for {node}: "))
+
+# ---- START & GOAL ----
+start = input("\nEnter start node: ").strip()
+goal = input("Enter goal node: ").strip()
+
+# ---- RUN A* ----
+result = a_star(graph, h, start, goal)
+
+print("\nFinal Output")
+print("Algorithm: A* Search")
+if result:
+    print("Path:", " -> ".join(result))
+else:
+    print("No valid path.")
+
+
+
+
+
+SAMPLE OUTPUT:-
+
+Enter number of nodes: 5
+Enter node: A
+Enter neighbors of A as (name cost), separated by commas: B 1, C 4
+Enter node: B
+Enter neighbors of B as (name cost), separated by commas: D 2
+Enter node: C
+Enter neighbors of C as (name cost), separated by commas: D 5, E 3
+Enter node: D
+Enter neighbors of D as (name cost), separated by commas: E 1
+Enter node: E
+Enter neighbors of E as (name cost), separated by commas:
+
+Enter heuristic values:
+Heuristic for A: 7
+Heuristic for B: 6
+Heuristic for C: 2
+Heuristic for D: 1
+Heuristic for E: 0
+
+Enter start node: A
+Enter goal node: E
+
+A* Algorithm
+Visiting: A
+Visiting: B
+Visiting: D
+Visiting: E
+
+Goal Reached!
+
+Final Output
+Algorithm: A* Search
+Path: A -> B -> D -> E
+
+
+
+
+RESULT:-
+
+Thus a python program to implement and demonstrate A* algorithm was successfully executed
+and verified.

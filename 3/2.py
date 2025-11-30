@@ -1,28 +1,5 @@
-AIM:-
-   Modify the same program to compare the total cost of paths obtained from A* and
-Greedy Best-First Search.
-
-
-ALGORITHM :-
-1. Start the program.
-2. Create a priority queue and add the start node with cost f(n) = h(n).
-3. Initialise an empty set for visited nodes.
-4. Repeat until the queue is empty:
-    a) Remove the node with the lowest h(n).
-    b) If it is the goal node, display the path and exit.
-    c) If not visited:
-         Mark as visited.
-         For each neighbor:
-         Add neighbor to the queue with priority h(neighbor).
-5 .End the program.
-
-
-
-PROGRAM:-
-
-
 def a_star(graph, h, start, goal):
-    open_list = [(start, [start], 0)]  # (node, path, g_cost)
+    open_list = [(start, [start], 0)] 
     visited = set()
 
     while open_list:
@@ -72,7 +49,6 @@ def calculate_cost(graph, path):
     return cost
 
 
-# ---- Input graph ----
 graph = {}
 n = int(input("Enter number of nodes: "))
 for _ in range(n):
@@ -85,7 +61,6 @@ for _ in range(n):
             neighbor_list.append((name, int(cost)))
     graph[node] = neighbor_list
 
-# ---- Heuristic ----
 h = {}
 print("\nEnter heuristic values:")
 for node in graph:
@@ -94,10 +69,8 @@ for node in graph:
 start = input("\nEnter start node: ").strip()
 goal = input("Enter goal node: ").strip()
 
-# ---- A* ----
 a_star_path, a_star_cost = a_star(graph, h, start, goal)
 
-# ---- Greedy BFS ----
 greedy_path = greedy_bfs(graph, h, start, goal)
 greedy_cost = calculate_cost(graph, greedy_path) if greedy_path else None
 
@@ -114,43 +87,4 @@ if a_star_cost and greedy_cost:
 
 
 
-SAMPLE OUTPUT:-
-
-Enter number of nodes: 5
-Enter node: A
-Enter neighbors of A as (name cost), separated by commas: B 1, C 4
-Enter node: B
-Enter neighbors of B as (name cost), separated by commas: D 2
-Enter node: C
-Enter neighbors of C as (name cost), separated by commas: D 5, E 3
-Enter node: D
-Enter neighbors of D as (name cost), separated by commas: E 1
-Enter node: E
-Enter neighbors of E as (name cost), separated by commas:
-
-Enter heuristic values:
-Heuristic for A: 7
-Heuristic for B: 6
-Heuristic for C: 2
-Heuristic for D: 1
-Heuristic for E: 0
-
-Enter start node: A
-Enter goal node: E
-
-
-====== FINAL COMPARISON ======
-A* Search Path: A -> B -> D -> E
-A* Total Cost: 4
-
-Greedy Best-First Search Path: A -> C -> E
-Greedy BFS Total Cost: 7
-
-→ A* gives the optimal (minimum-cost) path.
-→ Greedy BFS may fail to give optimal path because it considers only heuristic.
-
-
-
-Result:-
-Thus a python program to implement and demonstrate Greedy-Best First Search algorithm was
-successfully executed and verified
+#check how to give input in 2.txt sample output

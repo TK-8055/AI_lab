@@ -1,0 +1,132 @@
+AIM:- 
+   
+   Implement Breadth-First Search (BFS) algorithm to traverse a user-defined graph.
+
+
+ALGORITHM:-
+
+1. Start the program.
+
+2. Create an empty dictionary to store the graph.
+
+3. Accept the number of nodes and read the adjacency list for each node from the user.
+
+4. Initialize:
+
+  an empty list visited to store the order of visited nodes
+
+  a queue to store paths for BFS traversal
+
+5. Insert the start node into the queue.
+
+6. Repeat until the queue becomes empty:
+  a) Remove the first path from the queue
+  b) Let the last node in this path be the current node
+  c) If the current node is not visited, mark it visited
+  d) If the current node is the goal, return the visited order and path
+  e) For each neighbor of the current node, append the neighbor to the existing path and push it to the queue
+
+7. If the goal is not found, return visited order and empty path.
+
+8. Display the visiting order and BFS path.
+
+9. Stop.
+
+
+PROCEDURE:-
+
+1. Input graph nodes and neighbors from the user.
+
+2. Choose the start node and goal node for BFS.
+
+3. Apply the BFS algorithm using a queue to ensure level-order traversal.
+
+4. Track visited nodes to avoid repetition.
+
+5. Stop when the goal node is reached or queue becomes empty.
+
+6. Output the order of visited nodes and the final path.
+
+
+PROGRAM:-
+
+from collections import deque
+
+def input_graph():
+    graph = {}
+    num_nodes = int(input("Enter number of nodes in the graph: "))
+    for i in range(num_nodes):
+        node = input(f"Enter name of node {i+1}: ").strip()
+        neighbors = input(f"Enter neighbors of {node} (comma-separated): ").strip()
+        graph[node] = [n.strip() for n in neighbors.split(",")] if neighbors else []
+    return graph
+
+
+def bfs(graph, start, goal):
+    visited = []
+    queue = deque([[start]])
+
+    while queue:
+        path = queue.popleft()
+        node = path[-1]
+
+        if node not in visited:
+            visited.append(node)
+
+            if node == goal:
+                return visited, path
+
+            for neighbor in graph.get(node, []):
+                new_path = list(path)
+                new_path.append(neighbor)
+                queue.append(new_path)
+
+    return visited, []
+
+
+graph = input_graph()
+start_node = input("Enter start node: ").strip()
+goal_node = input("Enter goal node: ").strip()
+
+visited_order, bfs_path = bfs(graph, start_node, goal_node)
+
+print("\n=== BFS RESULT ===")
+print("Visited Order:", visited_order)
+print("Path to Goal:", " -> ".join(bfs_path) if bfs_path else "No path found")
+
+
+
+
+SAMPLE OUTPUT:-
+
+Enter number of nodes in the graph: 5
+Enter name of node 1: A
+Enter neighbors of A (comma-separated): B, C
+Enter name of node 2: B
+Enter neighbors of B (comma-separated): D
+Enter name of node 3: C
+Enter neighbors of C (comma-separated): D, E
+Enter name of node 4: D
+Enter neighbors of D (comma-separated): E
+Enter name of node 5: E
+Enter neighbors of E (comma-separated):
+Enter start node: A
+Enter goal node: E
+
+=== BFS RESULT ===
+Visited Order: ['A', 'B', 'C', 'D', 'E']
+Path to Goal: A -> C -> E
+
+
+RESULT:-
+
+The Breadth-First Search (BFS) algorithm was successfully implemented in Python.
+The program accepted a user-defined graph and correctly displayed the node visiting order and the BFS path from the start node to the goal node.
+
+
+
+
+how to run the code :-
+
+python 1.py (or) file name
+

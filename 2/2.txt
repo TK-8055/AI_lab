@@ -1,0 +1,132 @@
+AIM:-
+   mplement Depth-First Search (DFS) algorithm to traverse a user-defined graph.
+
+
+
+ALGORITHM:-
+
+1. Start the program.
+
+2. Create an empty dictionary to store the graph.
+
+3. Accept the number of nodes in the graph and input neighbors for each node.
+
+4. Initialize:
+
+   an empty list visited to store visited nodes
+
+   a stack containing the start node as the first path
+
+5. Repeat until the stack becomes empty:
+   a) Pop the topmost path from the stack
+   b) Let the last node in this path be the current node
+   c) If the current node is not in visited, mark it visited
+   d) If the current node is the goal, return visited order and path
+   e) For each neighbor of the current node (in reverse order), append it to the path and push the new path onto the stack
+
+6. If the goal is not found, return visited order and an empty path.
+
+7. Display the DFS visiting order and the final path.
+
+8. Stop.
+
+
+
+PROCEDURE:-
+
+1. Input the number of nodes and the neighbors of each node.
+
+2. Input start and goal nodes for DFS traversal.
+
+3. Apply DFS using a stack to explore deeper nodes before backtracking.
+
+4. Track visited nodes to avoid revisiting.
+
+5. Stop when the goal is reached or stack becomes empty.
+
+6. Print visiting order and DFS path.
+
+
+
+PROGRAM:-
+
+from collections import deque
+
+# Input graph from user
+def input_graph():
+    graph = {}
+    num_nodes = int(input("Enter number of nodes in the graph: "))
+    for i in range(num_nodes):
+        node = input(f"Enter name of node {i+1}: ").strip()
+        neighbors = input(f"Enter neighbors of {node} (comma-separated): ").strip()
+        graph[node] = [n.strip() for n in neighbors.split(",")] if neighbors else []
+    return graph
+
+
+# DFS Traversal
+def dfs(graph, start, goal):
+    visited = []
+    stack = [[start]]
+
+    while stack:
+        path = stack.pop()
+        node = path[-1]
+
+        if node not in visited:
+            visited.append(node)
+
+            if node == goal:
+                return visited, path
+
+            for neighbor in reversed(graph.get(node, [])):
+                new_path = list(path)
+                new_path.append(neighbor)
+                stack.append(new_path)
+
+    return visited, []
+
+
+# Main Program
+graph = input_graph()
+start_node = input("Enter start node: ").strip()
+goal_node = input("Enter goal node: ").strip()
+
+visited_order, dfs_path = dfs(graph, start_node, goal_node)
+
+print("\n=== DFS RESULT ===")
+print("Visited Order:", visited_order)
+print("Path to Goal:", " -> ".join(dfs_path) if dfs_path else "No path found")
+
+
+SAMPLE OUTPUT:-
+
+Enter number of nodes in the graph: 5
+Enter name of node 1: A
+Enter neighbors of A (comma-separated): B, C
+Enter name of node 2: B
+Enter neighbors of B (comma-separated): D
+Enter name of node 3: C
+Enter neighbors of C (comma-separated): E
+Enter name of node 4: D
+Enter neighbors of D (comma-separated):
+Enter name of node 5: E
+Enter neighbors of E (comma-separated):
+Enter start node: A
+Enter goal node: E
+
+=== DFS RESULT ===
+Visited Order: ['A', 'B', 'D', 'C', 'E']
+Path to Goal: A -> C -> E
+
+
+
+RESULT:-
+
+The Depth-First Search (DFS) algorithm was successfully implemented in Python.
+The program accepted a user-defined graph and correctly displayed the node visiting order and the DFS path from the start node to the goal node.
+
+
+
+how to run the code :-
+
+python 1.py (or) file name

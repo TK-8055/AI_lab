@@ -1,0 +1,124 @@
+AIM:-
+   Build a Propositional Logic Reasoning System that evaluates logical
+    expressionsusing connectives (AND, OR, NOT, →, ↔).
+
+
+ALGORITHM:-
+
+1. Start the program.
+
+2. Define functions for:
+
+    → (implies) using: p → q ≡ ¬p ∨ q
+
+    ↔ (iff) using: p ↔ q ≡ (p ∧ q) ∨ (¬p ∧ ¬q)
+
+3. Define a set of propositional variables (e.g., A, B, C).
+
+4. Ask the user to input truth values (True / False) for each proposition.
+
+5. Store truth values in a dictionary, e.g., {'A': True, 'B': False, 'C': True}.
+
+6. Using these values, evaluate several logical expressions involving:
+
+    AND (∧), OR (∨), NOT (¬), →, ↔
+
+7. Display each expression and its corresponding truth value.
+
+8. Stop the program.
+
+
+
+
+PROCEDURE:-
+
+1. Start Python and create a new file (e.g., logic_system.py).
+
+2. Define helper functions implies(p, q) and iff(p, q).
+
+3. Ask the user to enter truth values for propositions A, B, and C.
+
+4. Convert the user input (true/false) into Python True/False.
+
+5. Evaluate compound expressions such as:
+
+    A ∧ ¬C
+
+    (A ∨ B) ∧ C
+
+    ¬B ∨ A
+
+    A → C
+
+    B ↔ C
+
+6. Print the results of each evaluated expression.
+
+7. End the program.
+
+
+
+
+PROGRAM:-
+def implies(p, q):
+    return (not p) or q
+
+def iff(p, q):
+    return (p and q) or (not p and not q)
+
+def get_user_propositions():
+    props = {}
+    variables = ['A', 'B', 'C']
+    print("Enter truth values for propositions (True/False):")
+    for var in variables:
+        while True:
+            val = input(f"Value of {var}: ").strip().lower()
+            if val in ['true', 't', '1']:
+                props[var] = True
+                break
+            elif val in ['false', 'f', '0']:
+                props[var] = False
+                break
+            else:
+                print("Please enter True or False.")
+    return props
+
+def evaluate_expressions(props):
+    A = props["A"]; B = props["B"]; C = props["C"]
+    print("\n--- Propositional Logic Evaluation ---")
+    print("1) A ∧ ¬C      =", A and not C)
+    print("2) (A ∨ B) ∧ C =", (A or B) and C)
+    print("3) ¬B ∨ A      =", (not B) or A)
+    print("4) A → C       =", implies(A, C))
+    print("5) B ↔ C       =", iff(B, C))
+
+propositions = get_user_propositions()
+evaluate_expressions(propositions)
+
+
+
+SAMPLE OUTPUT:-
+
+Enter truth values for propositions (True/False):
+Value of A: true
+Value of B: false
+Value of C: true
+
+--- Propositional Logic Evaluation ---
+1) A ∧ ¬C        = False
+2) (A ∨ B) ∧ C   = True
+3) ¬B ∨ A        = True
+4) A → C         = True
+5) B ↔ C         = False
+
+
+
+RESULT
+
+The propositional logic reasoning system was successfully
+implemented in Python and correctly evaluated logical
+expressions using AND, OR, NOT, →, and ↔ based on
+user-defined truth values.
+
+
+
