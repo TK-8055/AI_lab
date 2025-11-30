@@ -1,0 +1,103 @@
+AIM:-
+    Modify your code to display subjectivity along with the polarity score.
+
+ALGORITHM:-
+
+1. Start the program.
+
+2. Import the required TextBlob library.
+
+3. Display a welcome message to the user.
+
+4. Read a sentence or paragraph as input from the user.
+
+5. Convert the input text into a TextBlob object.
+
+6. Calculate:
+
+    Polarity using analysis.sentiment.polarity
+
+    Subjectivity using analysis.sentiment.subjectivity
+
+7. Determine the sentiment based on polarity:
+
+  If polarity > 0 → Sentiment is Positive
+
+  If polarity < 0 → Sentiment is Negative
+
+  If polarity = 0 → Sentiment is Neutral
+
+8. Display the polarity score, subjectivity score, and sentiment class to the user.
+
+9. Stop the program.
+
+
+PROCEDURE:-
+
+1. Install the TextBlob library using pip install textblob.
+
+2. Download TextBlob corpora if required using python -m textblob.download_corpora.
+
+3. In a Python IDE (IDLE / VS Code / Jupyter), create a file named sentiment.py.
+
+4. Type the program given below and save the file.
+
+5. Execute the program.
+
+6. Enter any text when prompted.
+
+7. View the polarity, subjectivity, and sentiment results displayed on the screen.
+
+
+
+PROGRAM:-
+
+from textblob import TextBlob
+
+print("Welcome to the Sentiment Analysis System")
+print("This system evaluates text and displays polarity and subjectivity scores.\n")
+
+user_i = input("Enter the text to analyze: ")
+
+analysis = TextBlob(user_i)
+polarity = analysis.sentiment.polarity
+subjectivity = analysis.sentiment.subjectivity
+
+if polarity > 0:
+    sentiment = "Positive"
+elif polarity < 0:
+    sentiment = "Negative"
+else:
+    sentiment = "Neutral"
+
+print("\n----- Sentiment Analysis Result -----")
+print(f"Polarity Score     : {polarity}")
+print(f"Subjectivity Score : {subjectivity}")
+print(f"Overall Sentiment  : {sentiment}")
+
+
+
+SAMPLE OUTPUT:-
+
+Enter the text to analyze: I enjoy learning AI. It is fun and exciting.
+
+----- Sentiment Analysis Result -----
+Polarity Score     : 0.65
+Subjectivity Score : 0.75
+Overall Sentiment  : Positive
+
+
+RESULT:-
+
+The experiment was successfully performed.
+The developed Python program analyzed the entered text using the TextBlob library and generated the polarity score, subjectivity score, and the corresponding sentiment classification accurately.
+
+
+how to run the code :-
+
+python -m venv venv
+pip install textblob
+
+python 1.py (or) file name
+
+input:- I enjoy learning AI. It is fun and exciting.

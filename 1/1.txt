@@ -1,0 +1,79 @@
+AIM:-
+    
+    Implement a simple AI-based Sentiment Analyzer in Python using the TextBloblibrary to classify text as positive, negative, or
+neutral.
+
+ALGORITHM:-
+     
+1. Start the program.
+2. Import the required library: TextBlob.
+3. Accept user input (a sentence or paragraph).
+4. Create a TextBlob object using the input text.
+5. Use the .sentiment.polarity property to compute the sentiment score.
+6. Determine the sentiment:
+  a. If polarity &gt; 0 → Positive
+  b. If polarity &lt; 0 → Negative
+  c. If polarity = 0 → Neutral
+7. Display the sentiment and polarity score.
+8. End the program.
+
+PROCEDURE:-
+
+1. Open a Python IDE (Jupyter Notebook, VS Code, or Anaconda Prompt).
+2. Ensure that the textblob library is installed using:
+pip install textblob
+3. Import the TextBlob class.
+4. Get input from the user for analysis.
+5. Analyze the sentiment using TextBlob.
+6. Print the polarity score and classified sentiment.
+7. Save and run the program to observe the output.
+
+
+PROGRAM:
+
+from textblob import TextBlob
+
+print("Welcome all to This Sentiment Analysis Page")
+print("No matter what the lines number, all matters is the polarity!!")
+
+user_i = input("Enter the desired passage : ")
+analysis = TextBlob(user_i)
+polarity = analysis.sentiment.polarity
+
+if polarity > 0:
+    sentiment = "Positive"
+elif polarity < 0:
+    sentiment = "Negative"
+else:
+    sentiment = "Neutral"
+
+print("The final results are here!")
+print(f"The polarity of passage is : {polarity}")
+print(f"The Sentiment is : {sentiment}")
+
+
+
+Example output:
+
+Enter the desired passage : I love AI!
+The polarity of passage is : 0.625
+The Sentiment is : Positive
+
+
+RESULT :
+
+A simple AI-based sentiment analysis program was successfully implemented using the TextBlob
+library in Python. The program accepts user input and correctly classifies it as Positive, Negative,
+or Neutral based on the polarity score.
+
+
+
+
+how to run the code :-
+
+python -m venv venv
+pip install textblob
+
+python 1.py (or) file name
+
+input i love ai
