@@ -1,0 +1,151 @@
+AMI:-
+   Create a Knowledge Base using First-Order Logic (FOL) for a hospital scenario
+using the kanren library.
+
+
+
+
+ALGORITHM:-
+
+1. Start the program and import required modules from the kanren library.
+
+2. Define relations representing knowledge (e.g., doctor, treats).
+
+3. Add facts to the knowledge base using the facts() function.
+
+4. Define an inference rule:
+
+    A doctor is skilled if they treat at least one disease.
+
+5. Accept a user query:
+
+    “Who is skilled?”
+
+    “Is doctor skilled?”
+
+6. If query starts with “Who”, return all persons satisfying the skilled rule.
+
+7. If query starts with “Is”, check whether the specified doctor satisfies the skilled rule.
+
+8. Display the result.
+
+9. End the program.
+
+
+
+
+
+PROGRAM:-
+
+
+import collections
+import collections.abc
+
+# Fix for kanren compatibility
+collections.Iterator = collections.abc.Iterator
+collections.Hashable = collections.abc.Hashable
+
+from kanren import Relation, facts, run, var, conde
+
+# ---------------------- KNOWLEDGE BASE ----------------------
+
+doctor = Relation()
+treats = Relation()
+
+# Facts — doctors in hospital
+facts(doctor,
+    ("dr_smith",),
+    ("dr_jones",),
+    ("dr_lee",),
+    ("dr_williams",),
+    ("dr_davis",)
+)
+
+# Facts — diseases treated by each doctor
+facts(treats,
+    ("dr_smith", "flu"),
+    ("dr_smith", "allergy"),
+    ("dr_jones", "cold"),
+    ("dr_lee", "covid"),
+    ("dr_lee", "pneumonia"),
+    ("dr_williams", "diabetes"),
+    ("dr_davis", "hypertension")
+)
+
+# Rule: A doctor is skilled if they treat at least one disease
+def is_skilled(person):
+    return conde((doctor(person), treats(person, var())),)
+
+
+# ---------------------- USER QUERY HANDLING ----------------------
+
+query = input("Enter query (e.g., Who is skilled? / Is dr_lee skilled?): ").strip().lower()
+x = var()
+
+# WHO query
+if query.startswith("who"):
+    result = run(0, x, is_skilled(x))
+    if result:
+        print("\n✓ Skilled doctors found:")
+        for name in result:
+            print(f"- {name.replace('_', ' ').title()}")
+    else:
+        print("\nX No skilled doctors found.")
+
+# IS query
+elif query.startswith("is"):
+    words = query.replace("?", "").split()
+    if len(words) >= 2:
+        name = words[1]
+        skilled_list = run(0, x, is_skilled(x))
+        if name in skilled_list:
+            print(f"\n✓ Yes, {name.replace('_', ' ').title()} is skilled.")
+        else:
+            print(f"\nX No, {name.replace('_', ' ').title()} is not skilled.")
+    else:
+        print("\nX Invalid query format.")
+
+else:
+    print("\nX Invalid query type.")
+
+
+
+
+
+
+SAMPLE OUTPUT:-
+
+
+Enter query: Who is skilled?
+
+✓ Skilled doctors found:
+- Dr Smith
+- Dr Jones
+- Dr Lee
+- Dr Williams
+- Dr Davis
+
+
+Enter query: Is dr_lee skilled?
+
+✓ Yes, Dr Lee is skilled.
+
+
+
+
+RESULT:-
+The First-Order Logic (FOL) knowledge base was successfully implemented and
+ correctly inferred skilled doctors based on the stored facts and rules.
+
+
+
+
+
+
+
+ How to run the code:-
+
+ python -m venv venv
+pip install kanren
+pip install unification
+pip install toolz

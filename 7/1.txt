@@ -1,0 +1,105 @@
+AIM:-
+
+Design a rule-based Expert System for Medical Diagnosis using forward chaining in
+Python.
+
+
+
+
+ALGORITHM
+
+1. Start the program.
+
+2. Define a knowledge base containing rules, where each rule links symptoms to a disease.
+
+3. Display instructions and accept symptoms from the user.
+
+4. Convert the user-provided symptoms into a set for easy comparison.
+
+5. For each rule in the knowledge base:
+
+    Check whether the rule’s symptom set is a subset of the user’s symptoms.
+
+    If yes, infer and store the corresponding disease.
+
+6. If one or more rules match, display the inferred diseases.
+
+7. If no rules match, display a message indicating no diagnosis can be made.
+
+8. End the program.
+
+
+
+
+PROGRAM:-
+
+
+# Rule-Based Expert System for Medical Diagnosis using Forward Chaining
+
+# Knowledge Base (Rules)
+rules = [
+    {"if": {"fever", "cough", "fatigue"}, "then": "Flu"},
+    {"if": {"fever", "cough", "shortness of breath"}, "then": "COVID-19"},
+    {"if": {"headache", "nausea", "sensitivity to light"}, "then": "Migraine"},
+    {"if": {"sore throat", "runny nose", "sneezing"}, "then": "Common Cold"},
+    {"if": {"chest pain", "shortness of breath", "dizziness"}, "then": "Heart Attack"},
+]
+
+# Forward Chaining Inference Engine
+def diagnose(symptoms):
+    matched_diseases = []
+    symptoms_set = set(symptoms)
+
+    for rule in rules:
+        if rule["if"].issubset(symptoms_set):
+            matched_diseases.append(rule["then"])
+
+    return matched_diseases
+
+# User Interface
+def main():
+    print("=== Forward Chaining Medical Expert System ===")
+    print("Enter your symptoms separated by commas (e.g., fever, cough):")
+
+    user_input = input("Symptoms: ").lower()
+    symptoms = [s.strip() for s in user_input.split(",")]
+
+    diagnoses = diagnose(symptoms)
+
+    if diagnoses:
+        print("\nPossible diagnosis(es):")
+        for disease in diagnoses:
+            print(f"- {disease}")
+    else:
+        print("\nNo matching diagnosis found — please consult a doctor.")
+
+# Run Program
+if __name__ == "__main__":
+    main()
+
+
+
+SAMPLE OUTPUT:-
+
+
+=== Forward Chaining Medical Expert System ===
+Enter your symptoms separated by commas (e.g., fever, cough):
+Symptoms: fever, cough, fatigue
+
+Possible diagnosis(es):
+- Flu
+
+
+=== Forward Chaining Medical Expert System ===
+Symptoms: chest pain, dizziness, shortness of breath
+
+Possible diagnosis(es):
+- Heart Attack
+
+
+
+RESULT:-
+
+
+The forward chaining medical expert system was successfully implemented 
+and accurately inferred diseases based on user-provided symptoms.

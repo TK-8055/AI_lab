@@ -1,0 +1,84 @@
+AIM:-
+  Write a query to find all doctors who treat a given disease from the knowledge base
+
+ALGORITHM:-
+
+1. Import required modules from kanren.
+
+2. Load the existing knowledge base containing relations doctor and treats.
+
+3. Accept a disease name from the user.
+
+4. Create a logic variable to search for matching doctors.
+
+5. Use run() to retrieve all doctors who satisfy the predicate treats(doctor, disease).
+
+6. Display the list of doctors or show a message if none are found.
+
+7. End the program.
+
+
+
+PROGRAM:-
+
+
+import collections
+import collections.abc
+
+# Fix for kanren new Python versions
+collections.Iterator = collections.abc.Iterator
+collections.Hashable = collections.abc.Hashable
+
+from kanren import Relation, facts, run, var
+
+# Knowledge Base
+doctor = Relation()
+treats = Relation()
+
+facts(doctor,
+    ("dr_smith",),
+    ("dr_jones",),
+    ("dr_lee",),
+    ("dr_williams",),
+    ("dr_davis",)
+)
+
+facts(treats,
+    ("dr_smith", "flu"),
+    ("dr_smith", "allergy"),
+    ("dr_jones", "cold"),
+    ("dr_lee", "covid"),
+    ("dr_lee", "pneumonia"),
+    ("dr_williams", "diabetes"),
+    ("dr_davis", "hypertension")
+)
+
+# Query to find all doctors treating a given disease
+disease = input("Enter a disease: ").strip().lower()
+x = var()
+result = run(0, x, treats(x, disease))
+
+if result:
+    print("\nDoctors who treat", disease, ":")
+    for name in result:
+        print("-", name.replace("_", " ").title())
+else:
+    print("\nNo doctor found for this disease.")
+
+
+
+
+SAMPLE OUTPUT:-
+
+
+Enter a disease: covid
+
+Doctors who treat covid :
+- Dr Lee
+
+
+
+RESULT:-
+
+The program was successfully executed and returned all doctors who treat
+ the given disease from the First-Order Logic (FOL) knowledge base.

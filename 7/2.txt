@@ -1,0 +1,97 @@
+AIM:-
+
+   Extend the system to display multiple possible diseases when symptoms overlap
+with more than one rule.
+
+
+ALGORITHM:-
+
+
+1. Start the program.
+
+2. Define a knowledge base using rules where each rule maps a set of symptoms to a disease.
+
+3. Accept symptoms from the user as input.
+
+4. Convert the entered symptoms into a set.
+
+5. For each rule in the knowledge base:
+
+    Check if the rule’s symptom set is a subset of the user’s symptom set.
+
+    If yes, append the corresponding disease to the output list (allowing multiple diseases).
+
+6. If one or more rules match, display all inferred diseases.
+
+7. If no rule matches, display a message advising to consult a doctor.
+
+8. End the program.
+
+
+
+
+PROGRAM:-
+
+
+# Extended Rule-Based Expert System for Medical Diagnosis using Forward Chaining
+
+# Knowledge Base (Rules)
+rules = [
+    {"if": {"fever", "cough", "fatigue"}, "then": "Flu"},
+    {"if": {"fever", "cough", "shortness of breath"}, "then": "COVID-19"},
+    {"if": {"cough", "fatigue", "shortness of breath"}, "then": "Pneumonia"},
+    {"if": {"sore throat", "runny nose", "sneezing"}, "then": "Common Cold"},
+    {"if": {"headache", "nausea", "sensitivity to light"}, "then": "Migraine"},
+    {"if": {"chest pain", "shortness of breath", "dizziness"}, "then": "Heart Attack"},
+]
+
+# Forward Chaining Inference Engine
+def diagnose(symptoms):
+    matched_diseases = []
+    symptoms_set = set(symptoms)
+
+    for rule in rules:
+        if rule["if"].issubset(symptoms_set):
+            matched_diseases.append(rule["then"])
+    return matched_diseases
+
+# User Interface
+def main():
+    print("=== Extended Medical Expert System (Multiple Diagnosis Support) ===")
+    print("Enter your symptoms separated by commas (e.g., fever, cough):")
+
+    user_input = input("Symptoms: ").lower()
+    symptoms = [s.strip() for s in user_input.split(",")]
+
+    diagnoses = diagnose(symptoms)
+
+    if diagnoses:
+        print("\nPossible diagnosis(es):")
+        for disease in diagnoses:
+            print(f"- {disease}")
+    else:
+        print("\nNo matching diagnosis found — please consult a doctor.")
+
+# Run Program
+if __name__ == "__main__":
+    main()
+
+
+
+SAMPLE OUTPUT:-
+
+
+=== Extended Medical Expert System (Multiple Diagnosis Support) ===
+Symptoms: fever, cough, shortness of breath, fatigue
+
+Possible diagnosis(es):
+- Flu
+- COVID-19
+- Pneumonia
+
+
+
+RESULT:-
+
+The expert system was successfully extended to display multiple possible 
+diseases when overlapping symptoms match more than one rule.
